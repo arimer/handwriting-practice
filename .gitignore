@@ -13,3 +13,7 @@ CLAUDE.md
 # Test run output and temporary pages
 tests/out/
 .smoke-tmp-*.html
+
+# OS and IDE files
+.DS_Store
+.idea/
