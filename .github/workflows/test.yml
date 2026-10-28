@@ -9,12 +9,17 @@ permissions:
 
 jobs:
   smoke:
-    runs-on: ubuntu-latest
+    # Pinned: tests/golden.json was made on this image. ubuntu-latest moves to 26.04 between 2026-10-19 and 2026-11-19,
+    # which could change the font-measuring results. To move on, switch the label and replace tests/golden.json from the new run's artifact.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
-      - name: Chrome version
-        run: google-chrome --version
+      - name: Environment
+        run: |
+          grep PRETTY_NAME /etc/os-release
+          python3 --version
+          google-chrome --version
       - name: Smoke / regression test
         run: python3 tests/run.py
       - name: Upload results
