@@ -1,5 +1,7 @@
 # Handwriting Practice
 
+**Try it yourself:** [arimer.github.io/handwriting-practice](https://arimer.github.io/handwriting-practice/)
+
 Open `index.html` directly in your browser. No install, no server. Print with ⌘/Ctrl + P, paper A4, margins none.
 
 ## Sheet types
