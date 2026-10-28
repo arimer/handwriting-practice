@@ -4,7 +4,7 @@
 // ruling lines into every letter, which clashes with the sheet's guides.
 // Family names only, taken from Google Fonts metadata; all listed fonts are open source (OFL/Apache/UFL)
 // and are loaded from Google at runtime, not bundled here.
-// Regenerate: see CLAUDE.md ("Google Font suggestions").
+// Regenerate: see README.md ("Updating the Google font suggestions").
 window.GOOGLE_HANDWRITING_FONTS = [
   "Dancing Script",
   "Caveat",

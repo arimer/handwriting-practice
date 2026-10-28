@@ -53,6 +53,27 @@ If you don't want to download a file, use the "Or online Google Font" field: sta
 
 **Privacy:** the font is loaded from Google's servers, so your browser sends your IP address to Google. Nothing is requested until you enter a name, and the local fonts in the dropdown never contact Google.
 
+## Updating the Google font suggestions
+
+`google-fonts-handwriting.js` is a static snapshot of family names (the Google Fonts metadata endpoint cannot be fetched from the page because it sends no CORS header). To refresh it, download the metadata and print the new list:
+
+```sh
+curl -s https://fonts.google.com/metadata/fonts -o metadata.json
+python3 - <<'EOF'
+import json
+raw = open('metadata.json', encoding='utf-8').read()
+fams = json.loads(raw[raw.index('{'):])['familyMetadataList']   # the file starts with a few junk characters
+keep = [f for f in fams if f['category'] == 'Handwriting'
+        and f.get('primaryScript', '') in ('', 'Latn') and 'Guides' not in f['family']]
+keep.sort(key=lambda f: f['popularity'])                          # most popular first
+print('window.GOOGLE_HANDWRITING_FONTS = [')
+print(',\n'.join('  ' + json.dumps(f['family']) for f in keep))
+print('];')
+EOF
+```
+
+Replace the array in `google-fonts-handwriting.js` with the output and update the family count and snapshot date in its header comment. "Guides" fonts are left out because they draw their own ruling lines into every letter, which clashes with the sheet's guides.
+
 ## Tests
 
 A smoke / regression test checks that the page still behaves as it does now. It needs only Python 3 and Chrome (macOS or Linux):
