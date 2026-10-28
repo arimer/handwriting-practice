@@ -1,4 +1,4 @@
-# Script Practice
+# Handwriting Practice
 
 Open `index.html` directly in your browser. No install, no server. Print with ⌘/Ctrl + P, paper A4, margins none.
 
