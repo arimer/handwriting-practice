@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Printable A4 handwriting and calligraphy practice sheets with guide lines and dotted letters to trace. Runs in the browser.">
 <title>Handwriting Practice</title>
 <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
@@ -281,6 +282,18 @@
     .hero{ padding: 24px 16px 16px; }
     .help-cols{ grid-template-columns: 1fr; }
     .help-body{ padding: 0 16px 16px; }
+  }
+
+  /* Phones: scale the sheet preview with the screen. Print keeps the fixed mm sizes below. */
+  @media screen and (max-width: 640px){
+    .controls{ position: static; }
+    .canvas{ padding: 16px 8px 32px; gap: 14px; }
+    .sheet{ padding: 7.62%; min-height: 0; aspect-ratio: 210 / 297; }
+    html.landscape .sheet{ aspect-ratio: 297 / 210; }
+    .sheet-header{ padding-bottom: 1.5mm; margin-bottom: 2.5mm; }
+    .sheet-header h2{ font-size: 3.4mm; }
+    .sheet-header .meta{ font-size: 2.2mm; }
+    .sheet-footer{ right: 7.62%; bottom: 3.8%; }
   }
 
   .site-footer{
