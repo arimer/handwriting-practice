@@ -272,7 +272,15 @@
     .help-body{ padding: 0 16px 16px; }
   }
 
+  .site-footer{
+    max-width:794px; margin:28px auto 36px; padding:16px 20px 0;
+    border-top:1px solid var(--panel-edge);
+    font-size:12px; line-height:1.55; color:var(--text-soft); text-align:center;
+  }
+  .site-footer p{ margin:0 0 6px; }
+  .site-footer a{ color:var(--accent); }
   @media print{
+    .site-footer{ display:none; }
     @page{ size: A4; margin: 0; }
     .controls, .hero, .help{ display:none; }
     html, body{ margin:0; padding:0; background:#fff; }
@@ -428,6 +436,11 @@
 </details>
 
 <div class="canvas" id="sheet-canvas"></div>
+
+<footer class="site-footer">
+  <p>Source code, license and issues: <a href="https://github.com/arimer/handwriting-practice">github.com/arimer/handwriting-practice</a></p>
+  <p>Free for noncommercial use (PolyForm Noncommercial 1.0.0). Hosted on GitHub Pages, which logs visitor IP addresses. This page sets no cookies and has no analytics. A Google font is requested only when you type its name in the online font field; that sends your IP address to Google.</p>
+</footer>
 
 <script>
 (function(){
