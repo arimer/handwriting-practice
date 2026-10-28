@@ -1,0 +1,11 @@
+# Only the allow-listed font below (SIL OFL, with its licence files) is committed so the hosted page has a font.
+# Everything else in fonts/ stays local (licensing). To ship another font, check its licence and add it here on purpose.
+fonts/*
+!fonts/fonts-manifest.js
+!fonts/PlaywriteCA.ttf
+!fonts/PlaywriteCA-OFL.txt
+!fonts/PlaywriteCA-SOURCE.txt
+
+# Claude Code files stay out of the repo
+CLAUDE.md
+.claude/

@@ -1,0 +1,896 @@
+<title>Handwriting Practice</title>
+<script src="fonts/fonts-manifest.js"></script>
+<script src="fonts/fonts-manifest.local.js"></script><!-- optional, git-ignored, written by update-fonts-manifest; a 404 is fine -->
+<script src="google-fonts-handwriting.js"></script>
+<link id="font-link" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#EEF1EE;
+    --panel:#FFFFFF;
+    --panel-edge:#DDE2DC;
+    --text:#20242B;
+    --text-soft:#5B6670;
+    --accent:#6B4C6B;
+
+    --paper:#FDFDFB;
+    --paper-edge:#E4E2DC;
+    --ink:#20242B;
+    --guide-top:#C9D3DA;
+    --guide-mid:#A9BBC7;
+    --guide-base:#7F97A9;
+    --guide-trace:#8A9DAA;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --canvas:#1B1D20;
+      --panel:#24272B;
+      --panel-edge:#34383C;
+      --text:#ECEAE4;
+      --text-soft:#9CA3A8;
+      --accent:#C9A0D1;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --canvas:#1B1D20;
+    --panel:#24272B;
+    --panel-edge:#34383C;
+    --text:#ECEAE4;
+    --text-soft:#9CA3A8;
+    --accent:#C9A0D1;
+    color-scheme: dark;
+  }
+
+  body{
+    background: var(--canvas);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  /* ---------- controls ---------- */
+  .controls{
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: var(--panel);
+    border-top: 1px solid var(--panel-edge);
+    border-bottom: 1px solid var(--panel-edge);
+    padding: 14px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 16px 20px;
+    box-shadow: 0 1px 0 var(--panel-edge), 0 6px 16px -12px rgba(0,0,0,.25);
+  }
+  .field{ display:flex; flex-direction:column; gap:4px; min-width: 0; }
+  .field label{
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-soft);
+  }
+  .field input, .field select{
+    font: inherit;
+    font-size: 14px;
+    padding: 7px 9px;
+    border-radius: 7px;
+    border: 1px solid var(--panel-edge);
+    background: var(--canvas);
+    color: var(--text);
+    min-width: 0;
+  }
+  .field select{ width: 20ch; }
+  .field input[type="text"]{ width: 19ch; }
+  .field input[type="range"]{ width: 110px; padding: 0; }
+  .field[hidden]{ display: none; }
+  .field input[type="number"]{ width: 6ch; }
+  .field input:focus-visible, .field select:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .field .hint{ font-size:11px; color:var(--text-soft); }
+  kbd{
+    font: inherit;
+    font-size: 12px;
+    padding: 1px 5px;
+    border: 1px solid var(--panel-edge);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background: var(--canvas);
+  }
+  code{
+    font-size: .9em;
+    background: var(--canvas);
+    border: 1px solid var(--panel-edge);
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    text-align: center;
+    padding: 36px 16px 22px;
+  }
+  .hero h1{
+    margin: 0;
+    font-family: var(--script-font, cursive);
+    font-weight: normal;
+    font-size: clamp(40px, 8vw, 64px);
+    line-height: 1.15;
+    color: var(--accent);
+  }
+  .hero .lede{
+    margin: 10px auto 0;
+    max-width: 52ch;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+
+  /* ---------- help ---------- */
+  .help{
+    max-width: 210mm;
+    margin: 20px auto 0;
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .help summary{
+    cursor: pointer;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: var(--accent);
+    list-style: none;
+  }
+  .help summary::-webkit-details-marker{ display:none; }
+  .help summary::before{
+    content: "";
+    display: inline-block;
+    width: 6px; height: 6px;
+    margin: 0 10px 2px 2px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform .15s;
+  }
+  .help[open] summary::before{ transform: rotate(45deg); }
+  .help summary:focus-visible{ outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 10px; }
+  .help-body{ padding: 0 20px 18px; border-top: 1px solid var(--panel-edge); }
+  .help h3{
+    margin: 18px 0 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-soft);
+  }
+  .help p{ margin: 0; }
+  .steps{ margin: 16px 0 0; padding-left: 20px; }
+  .steps li{ margin: 4px 0; }
+  .steps li::marker{ color: var(--accent); font-weight: 600; }
+  .help-cols{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
+  }
+  .help dl{ margin: 0; }
+  .help dt{ font-weight: 600; margin-top: 8px; }
+  .help dt:first-child{ margin-top: 0; }
+  .help dd{ margin: 0; color: var(--text-soft); }
+
+  /* ---------- sheet canvas ---------- */
+  .canvas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 16px 48px;
+  }
+  .sheet{
+    position: relative;
+    width: 100%;
+    max-width: 210mm;
+    min-height: 297mm;
+    box-sizing: border-box;
+    padding: 16mm;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 10px 28px rgba(0,0,0,.14);
+    border-radius: 2px;
+  }
+  html.landscape .sheet{ max-width: 297mm; min-height: 210mm; }
+  .sheet-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4mm;
+    border-bottom: 1px solid var(--paper-edge);
+    padding-bottom: 3mm;
+    margin-bottom: 5mm;
+  }
+  .sheet-header h2{
+    margin:0;
+    font-size: 4.4mm;
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+  .sheet-header .meta{
+    font-size: 2.6mm;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--guide-base);
+    white-space: nowrap;
+  }
+  .sheet-footer{
+    /* sits in the bottom page padding instead of taking height away from the guides */
+    position: absolute;
+    right: 16mm;
+    bottom: 8mm;
+    text-align: right;
+    font-size: 2.6mm;
+    color: var(--text-soft);
+  }
+
+  /* ---------- guides (SVG user units = mm) ---------- */
+  .sheet-svg{ display:block; width:100%; height:auto; overflow:visible; }
+  .sheet-svg text{ font-family: var(--script-font, cursive); }
+  .lead-letter{ fill: var(--ink); }
+  .trace-letter{ stroke: var(--guide-trace); }
+  .g-light{ stroke: var(--guide-top); stroke-width: .18; }
+  .g-mid{ stroke: var(--guide-mid); stroke-width: .2; stroke-dasharray: 1.2 1; }
+  .g-base{ stroke: var(--guide-base); stroke-width: .3; }
+  .g-bound{ stroke: var(--guide-base); stroke-width: .27; }
+  .g-baseline{ stroke: var(--guide-top); stroke-width: .2; }
+  .g-slant{ stroke: var(--guide-mid); stroke-width: .18; stroke-dasharray: .01 .8; stroke-linecap: round; }
+  .g-band{ stroke: var(--guide-base); stroke-width: .25; }
+  .g-band-slant{ stroke: var(--guide-top); stroke-width: .15; }
+  .g-cell{ stroke: var(--guide-base); stroke-width: .22; }
+  .g-sub{ stroke: var(--guide-mid); stroke-width: .2; }
+  .g-grid{ stroke: var(--guide-top); stroke-width: .18; }
+  .g-dot{ fill: var(--guide-base); }
+
+  @media (max-width: 640px){
+    .controls{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 12px;
+      padding: 12px 16px;
+    }
+    .field input[type="text"], .field select, .field input[type="range"]{ width: 100%; box-sizing: border-box; }
+    .hero{ padding: 24px 16px 16px; }
+    .help-cols{ grid-template-columns: 1fr; }
+    .help-body{ padding: 0 16px 16px; }
+  }
+
+  @media print{
+    @page{ size: A4; margin: 0; }
+    .controls, .hero, .help{ display:none; }
+    html, body{ margin:0; padding:0; background:#fff; }
+    .canvas{ padding:0; gap:0; background:#fff; }
+    .sheet{
+      box-shadow:none;
+      border-radius:0;
+      width:210mm;
+      /* a hair under 297mm so rounding never spills onto an extra page */
+      height:296mm;
+      min-height:0;
+      overflow:hidden;
+      max-width:none;
+      break-after: page;
+    }
+    html.landscape .sheet{ width:297mm; height:209mm; }
+    .sheet:last-child{ break-after: auto; }
+  }
+</style>
+
+<header class="hero">
+  <h1>Practice your Handwriting</h1>
+  <p class="lede">Printable A4 practice sheets with guide lines and dotted letters to trace. Pick a sheet type and a font, then print.</p>
+</header>
+
+<div class="controls">
+  <div class="field">
+    <label for="type-select">Sheet type</label>
+    <select id="type-select">
+      <option value="copperplate" selected>Copperplate guides</option>
+      <option value="lines">Handwriting lines</option>
+      <option value="bands">Slant bands</option>
+      <option value="slantgrid">Slant grid</option>
+      <option value="dots">Dot grid</option>
+      <option value="squares">Square grid</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="orientation-select">Paper</label>
+    <select id="orientation-select">
+      <option value="portrait" selected>Portrait</option>
+      <option value="landscape">Landscape</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="font-select">Font (from /fonts folder)</label>
+    <select id="font-select"></select>
+  </div>
+
+  <div class="field">
+    <label for="font-input">Or online Google Font</label>
+    <input id="font-input" type="text" list="font-suggestions" placeholder="e.g. Dancing Script" autocomplete="off" spellcheck="false">
+    <datalist id="font-suggestions"></datalist>
+    <span class="hint">Loads from Google, sends your IP address to Google</span>
+  </div>
+
+  <div class="field">
+    <label for="case-select">Letters</label>
+    <select id="case-select">
+      <option value="lower" selected>Lowercase a–z</option>
+      <option value="upper">Uppercase A–Z</option>
+      <option value="both">Both, as pairs Aa–Zz</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="only-input">Only these letters</label>
+    <input id="only-input" type="text" placeholder="e.g. aeoc (empty = all)" autocomplete="off" spellcheck="false" maxlength="52">
+  </div>
+
+  <div class="field">
+    <label for="lines-input">Lines per letter</label>
+    <input id="lines-input" type="number" min="1" max="10" value="1">
+  </div>
+
+  <div class="field">
+    <label for="size-range">Letter size</label>
+    <input id="size-range" type="range" min="6" max="60" step="0.5" value="13">
+    <span class="hint" id="size-readout">13 mm</span>
+  </div>
+
+  <div class="field" id="angle-field">
+    <label for="angle-range">Slant angle</label>
+    <input id="angle-range" type="range" min="45" max="90" step="1" value="55">
+    <span class="hint" id="angle-readout">55°</span>
+  </div>
+
+  <div class="field">
+    <label for="repeats-input">Repeats / row</label>
+    <input id="repeats-input" type="number" min="3" max="14" value="8">
+  </div>
+
+</div>
+
+<details class="help">
+  <summary>How it works</summary>
+  <div class="help-body">
+    <ol class="steps">
+      <li><strong>Pick a sheet type</strong> — the ruling that fits what you practise.</li>
+      <li><strong>Pick a font</strong> — the letters are drawn in it: one solid model letter, then dotted copies to trace.</li>
+      <li><strong>Print</strong> — <kbd>⌘</kbd>/<kbd>Ctrl</kbd>&nbsp;+&nbsp;<kbd>P</kbd>, paper <b>A4</b>, margins <b>None</b>. Each preview sheet is one printed page.</li>
+    </ol>
+
+    <div class="help-cols">
+      <section>
+        <h3>The controls</h3>
+        <dl>
+          <dt>Sheet type</dt>
+          <dd>The guide lines on the page. Line spacing is fixed per type so the guides stay true to scale.</dd>
+          <dt>Paper</dt>
+          <dd>A4 portrait or landscape. Landscape rows are longer but fewer fit per page, so the alphabet continues on more sheets. When printing, the page orientation follows this choice.</dd>
+          <dt>Font</dt>
+          <dd>Fonts from the <code>fonts/</code> folder next to this page. Works offline. The hosted page ships only Playwrite&nbsp;CA; to use your own fonts, run the page locally (see below) or use the online Google Font field.</dd>
+          <dt>Online Google Font</dt>
+          <dd>Start typing to pick from popular handwriting fonts on Google Fonts, or type any other Google Fonts name exactly (e.g. <i>Pinyon Script</i>). Needs internet; choosing a font from the list again switches back. <b>Privacy:</b> the font is loaded from Google's servers, which sends your IP address to Google. Nothing is requested until you enter a name.</dd>
+          <dt>Letters</dt>
+          <dd>Lowercase, uppercase, or both as letter pairs (Aa, Bb, Cc …) — pairs need more room, so fewer fit per row. Long alphabets continue on extra sheets.</dd>
+          <dt>Only these letters</dt>
+          <dd>Type the letters you want to practise (e.g. <i>aeoc</i>); case is ignored and the Letters choice decides lowercase, uppercase or pairs. Leave empty for the whole alphabet. Only a–z are supported.</dd>
+          <dt>Lines per letter</dt>
+          <dd>How many rows each letter gets (1–10), grouped: with 3, <i>a</i> is practised on three rows, then <i>e</i> on three rows. Extra rows continue on more sheets.</dd>
+          <dt>Letter size</dt>
+          <dd>Set automatically so the font's x-height matches the guides whenever you change sheet type or font. Drag to fine-tune. The maximum is limited so the tallest letter reaches at most 25% past the room above the baseline (the ascender line on Copperplate), so fonts with very tall ascenders get a smaller size.</dd>
+          <dt>Slant angle</dt>
+          <dd>Angle of the slant lines, 45–90° (55° by default). Only shown for sheet types with slant lines. It changes the guides, not the letters: the letters keep the slant of the font.</dd>
+          <dt>Repeats / row</dt>
+          <dd>How many dotted letters follow each model letter (3–14).</dd>
+        </dl>
+      </section>
+
+      <section>
+        <h3>Sheet types</h3>
+        <dl>
+          <dt>Copperplate guides</dt>
+          <dd>Ascender, x-height, baseline and descender lines in 3:2:3 proportion, with dotted slant lines (angle adjustable, 55° by default). Letters start in the middle of a slant space.</dd>
+          <dt>Handwriting lines</dt>
+          <dd>Top line, dashed x-height line and baseline — classic school ruling.</dd>
+          <dt>Slant bands</dt>
+          <dd>A 5&nbsp;mm x-height band with dotted slants (angle adjustable); letters start in the middle of a slant space.</dd>
+          <dt>Slant grid</dt>
+          <dd>20&nbsp;mm cells with sub-lines and a diagonal; one letter per cell.</dd>
+          <dt>Dot grid / Square grid</dt>
+          <dd>Neutral 5&nbsp;mm grids for free practice.</dd>
+        </dl>
+
+        <h3>Adding your own fonts (local copy only)</h3>
+        <p>Download the project and open <code>index.html</code> from your computer. Drop <code>.otf</code>, <code>.ttf</code>, <code>.woff</code> or <code>.woff2</code> files into the <code>fonts/</code> folder, then run <code>scripts/update-fonts-manifest.sh</code> (macOS/Linux) or double-click <code>scripts\update-fonts-manifest.cmd</code> (Windows) and reload this page.</p>
+      </section>
+    </div>
+  </div>
+</details>
+
+<div class="canvas" id="sheet-canvas"></div>
+
+<script>
+(function(){
+  const typeSelect = document.getElementById('type-select');
+  const fontSelect = document.getElementById('font-select');
+  const fontInput = document.getElementById('font-input');
+  const caseSelect = document.getElementById('case-select');
+  const orientationSelect = document.getElementById('orientation-select');
+  const sizeRange = document.getElementById('size-range');
+  const angleRange = document.getElementById('angle-range');
+  const angleField = document.getElementById('angle-field');
+  const angleReadout = document.getElementById('angle-readout');
+  const sizeReadout = document.getElementById('size-readout');
+  const repeatsInput = document.getElementById('repeats-input');
+  const onlyInput = document.getElementById('only-input');
+  const linesInput = document.getElementById('lines-input');
+  const canvas = document.getElementById('sheet-canvas');
+  const fontLink = document.getElementById('font-link');
+
+  // Drawing area of a sheet in mm: the A4 side minus 2×16mm padding; areaH is the height left for the guides
+  // after the header (13.6mm incl. gap, measured) and the bottom padding; the footer sits inside that padding.
+  // Print height is 296/209mm. Set from the Paper select by render().
+  const PAPER = {
+    portrait:  { W: 178, areaH: 250 },
+    landscape: { W: 265, areaH: 163 }
+  };
+  let W = PAPER.portrait.W;
+  let AREA_H = PAPER.portrait.areaH;
+  const pageStyle = document.createElement('style');
+  document.head.appendChild(pageStyle);
+  const slantTan = () => Math.tan(parseFloat(angleRange.value) * Math.PI / 180); // slant angle from the slider, 45..90°
+
+  const SIZE_MAX = 60; // keep in sync with max on #size-range
+  const LOWER = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  const UPPER = LOWER.map(c => c.toUpperCase());
+
+  const r2 = n => Math.round(n * 100) / 100;
+  const line = (x1, y1, x2, y2, cls) =>
+    '<line x1="' + r2(x1) + '" y1="' + r2(y1) + '" x2="' + r2(x2) + '" y2="' + r2(y2) + '" class="' + cls + '"/>';
+  const hline = (y, x1, x2, cls) => line(x1, y, x2, y, cls);
+
+  function slantLines(yTop, yBottom, xMin, xMax, spacing, cls){
+    const h = yBottom - yTop;
+    const dx = h / slantTan();
+    let out = '';
+    if(dx < 1e-6){ // 90°: vertical lines
+      for(let x = xMin; x <= xMax + 1e-6; x += spacing) out += line(x, yBottom, x, yTop, cls);
+      return out;
+    }
+    for(let x = xMin - dx; x < xMax; x += spacing){
+      let x1 = x, y1 = yBottom, x2 = x + dx, y2 = yTop;
+      if(x1 < xMin){ y1 = yBottom - (xMin - x1) / dx * h; x1 = xMin; }
+      if(x2 > xMax){ y2 = yTop + (x2 - xMax) / dx * h; x2 = xMax; }
+      if(x2 - x1 > 0.05) out += line(x1, y1, x2, y2, cls);
+    }
+    return out;
+  }
+
+  function cellGrid(cell, height){
+    const cols = Math.floor(W / cell);
+    return { cols, rowsN: Math.round(height / cell), x0: (W - cols * cell) / 2, w: cols * cell };
+  }
+
+  // pitch = row-to-row distance, baseline = baseline offset within a row, xHeight = target x-height (all mm)
+  const TYPES = {
+    copperplate: {
+      meta: 'Copperplate · 3:2:3 · 55°', pitch: 20, baseline: 10, xHeight: 4,
+      fit: { above: 10 * 1.25 }, // caps the letter size: tallest letter may reach 25% past the ascender line (10 mm above the baseline); no limit downwards
+      slant: { spacing: 3, top: 0, bottom: 16 }, // slant guides: horizontal spacing, y range in a row; letters start between two of them
+      guides(rows){
+        let s = '';
+        for(let i = 0; i < rows; i++){
+          const y = i * this.pitch;
+          s += slantLines(y + this.slant.top, y + this.slant.bottom, 0, W, this.slant.spacing, 'g-slant');
+          s += hline(y, 0, W, 'g-bound') + hline(y + 6, 0, W, 'g-mid') +
+               hline(y + 10, 0, W, 'g-baseline') + hline(y + 16, 0, W, 'g-bound');
+        }
+        return { x0: 0, w: W, markup: s };
+      }
+    },
+    lines: {
+      meta: 'Handwriting lines', pitch: 16, baseline: 10, xHeight: 4,
+      fit: { above: 10 * 1.25 }, // slider cap, as on copperplate: tallest letter may reach 25% past the room above the baseline (10 mm)
+      guides(rows){
+        let s = '';
+        for(let i = 0; i < rows; i++){
+          const y = i * this.pitch;
+          s += hline(y, 0, W, 'g-light') + hline(y + 6, 0, W, 'g-mid') + hline(y + 10, 0, W, 'g-base');
+        }
+        return { x0: 0, w: W, markup: s };
+      }
+    },
+    bands: {
+      meta: 'x-height bands · 55°', pitch: 15, baseline: 10, xHeight: 5,
+      fit: { above: 10 * 1.25 }, // slider cap, as on copperplate: tallest letter may reach 25% past the room above the baseline (10 mm)
+      slant: { spacing: 3, top: 5, bottom: 10 },
+      guides(rows){
+        let s = '';
+        for(let i = 0; i < rows; i++){
+          const y = i * this.pitch;
+          s += slantLines(y + this.slant.top, y + this.slant.bottom, 0, W, this.slant.spacing, 'g-band-slant');
+          s += hline(y + 5, 0, W, 'g-band') + hline(y + 10, 0, W, 'g-band') +
+               line(0, y + 5, 0, y + 10, 'g-band') + line(W, y + 5, W, y + 10, 'g-band');
+        }
+        return { x0: 0, w: W, markup: s };
+      }
+    },
+    slantgrid: {
+      meta: '20 mm grid · diagonals', pitch: 20, baseline: 16, xHeight: 4, cell: 20,
+      fit: { above: 16 * 1.25 }, // slider cap, as on copperplate: tallest letter may reach 25% past the room above the baseline (16 mm)
+      guides(rows){
+        const c = 20, H = rows * this.pitch, g = cellGrid(c, H);
+        let s = '';
+        for(let j = 0; j < g.rowsN; j++){
+          for(let k = 0; k < g.cols; k++){
+            s += line(g.x0 + k * c, (j + 1) * c, g.x0 + (k + 1) * c, j * c, 'g-light');
+          }
+          [4, 8, 12].forEach(o => { s += hline(j * c + o, g.x0, g.x0 + g.w, 'g-light'); });
+          s += hline(j * c + 16, g.x0, g.x0 + g.w, 'g-sub');
+        }
+        for(let j = 0; j <= g.rowsN; j++) s += hline(j * c, g.x0, g.x0 + g.w, 'g-cell');
+        for(let k = 0; k <= g.cols; k++) s += line(g.x0 + k * c, 0, g.x0 + k * c, H, 'g-cell');
+        return { x0: g.x0, w: g.w, markup: s };
+      }
+    },
+    dots: {
+      meta: '5 mm dot grid', pitch: 15, baseline: 10, xHeight: 5,
+      fit: { above: 10 * 1.25 }, // slider cap, as on copperplate: tallest letter may reach 25% past the room above the baseline (10 mm)
+      guides(rows){
+        const c = 5, g = cellGrid(c, rows * this.pitch);
+        let s = '';
+        for(let j = 0; j <= g.rowsN; j++){
+          for(let k = 0; k <= g.cols; k++){
+            s += '<circle cx="' + r2(g.x0 + k * c) + '" cy="' + (j * c) + '" r="0.28" class="g-dot"/>';
+          }
+        }
+        return { x0: g.x0, w: g.w, markup: s };
+      }
+    },
+    squares: {
+      meta: '5 mm squares', pitch: 15, baseline: 10, xHeight: 5,
+      fit: { above: 10 * 1.25 }, // slider cap, as on copperplate: tallest letter may reach 25% past the room above the baseline (10 mm)
+      guides(rows){
+        const c = 5, H = rows * this.pitch, g = cellGrid(c, H);
+        let s = '';
+        for(let j = 0; j <= g.rowsN; j++) s += hline(j * c, g.x0, g.x0 + g.w, 'g-grid');
+        for(let k = 0; k <= g.cols; k++) s += line(g.x0 + k * c, 0, g.x0 + k * c, H, 'g-grid');
+        return { x0: g.x0, w: g.w, markup: s };
+      }
+    }
+  };
+
+  let currentFamily = 'cursive'; // placeholder until a font is selected (the first manifest font is picked on load)
+
+  function sanitizeFontName(name){
+    return name.replace(/[^a-zA-Z0-9 ]/g, '').trim();
+  }
+
+  function setScriptFont(name){
+    currentFamily = name;
+    document.documentElement.style.setProperty('--script-font', "'" + name + "', cursive");
+  }
+
+  function injectLocalFonts(){
+    // local fonts (git-ignored fonts-manifest.local.js) first, then the fonts shipped with the repo
+    const seen = new Set();
+    const fonts = [...(window.LOCAL_FONTS_EXTRA || []), ...(window.LOCAL_FONTS || [])]
+      .filter(f => f && f.name && f.file && !seen.has(f.file) && seen.add(f.file));
+    const formats = { otf: 'opentype', ttf: 'truetype', woff: 'woff', woff2: 'woff2' };
+    if(fonts.length){
+      const style = document.createElement('style');
+      style.textContent = fonts.map(f => {
+        const ext = (f.file.split('.').pop() || '').toLowerCase();
+        const fmt = formats[ext] || 'opentype';
+        const safeName = f.name.replace(/'/g, "\\'");
+        return "@font-face{font-family:'" + safeName + "';src:url('fonts/" + f.file + "') format('" + fmt + "');font-display:swap;}";
+      }).join('\n');
+      document.head.appendChild(style);
+    }
+    fonts.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f.name;
+      opt.textContent = f.name;
+      fontSelect.appendChild(opt);
+    });
+    if(!fonts.length){
+      const opt = document.createElement('option');
+      opt.textContent = 'No fonts found in /fonts';
+      opt.disabled = true;
+      fontSelect.appendChild(opt);
+    }
+  }
+
+  // Ink metrics of the current font as fractions of font-size: xRatio = x-height,
+  // baseShift = how far the x-height letters' ink floats above the font baseline.
+  // Some script fonts (e.g. Karstar, Inter Signature) draw lowercase well above
+  // their baseline, so letters are shifted down by baseShift to sit on the guide.
+  // Measured by scanning rendered pixels rather than measureText bounding boxes, because
+  // "Guides" fonts (e.g. Playwrite CA Guides) draw their own guide lines into every glyph:
+  // rows inked across the full advance of every sample letter are those lines and are ignored.
+  let fontMetrics = { xRatio: 0.35, baseShift: 0 };
+
+  function measureFont(){
+    const S = 200, CW = 600, CH = 600, BASE = 400, X0 = 100;
+    const canvas = document.createElement('canvas');
+    canvas.width = CW; canvas.height = CH;
+    const g = canvas.getContext('2d', { willReadFrequently: true });
+    g.font = S + 'px "' + currentFamily + '", cursive';
+    const scans = 'xnmuvw'.split('').map(ch => {
+      g.clearRect(0, 0, CW, CH);
+      g.fillText(ch, X0, BASE);
+      const adv = Math.max(1, Math.round(g.measureText(ch).width));
+      const d = g.getImageData(0, 0, CW, CH).data;
+      const ink = [], full = [];
+      for(let y = 0; y < CH; y++){
+        let any = false, inAdv = 0;
+        for(let x = 0; x < CW; x++){
+          if(d[(y * CW + x) * 4 + 3] < 64) continue;
+          any = true;
+          if(x >= X0 && x < X0 + adv) inAdv++;
+        }
+        ink.push(any);
+        full.push(inAdv >= adv * 0.95);
+      }
+      return { ink, full };
+    });
+    const isGuide = y => scans.every(s => s.full[y]);
+    const tops = [], bottoms = [];
+    scans.forEach(s => {
+      let yMin = -1, yMax = -1;
+      for(let y = 0; y < CH; y++){
+        if(!s.ink[y] || isGuide(y)) continue;
+        if(yMin < 0) yMin = y;
+        yMax = y;
+      }
+      if(yMin >= 0){ tops.push((BASE - yMin) / S); bottoms.push((BASE - yMax - 1) / S); }
+    });
+    if(!tops.length) return { xRatio: 0.35, baseShift: 0 };
+    const median = a => a.sort((p, q) => p - q)[a.length >> 1];
+    const top = median(tops), bottom = median(bottoms);
+    const xRatio = top - bottom;
+    return xRatio > 0.05 ? { xRatio, baseShift: bottom } : { xRatio: 0.35, baseShift: 0 };
+  }
+
+  // Ink extent of one glyph (or letter pair) in em, measured from the font baseline:
+  // top = how far it reaches above it, bottom = how far below. Same pixel scan idea as measureFont,
+  // including skipping rows that are a "Guides" font's own guide line.
+  const inkCache = new Map();
+  function inkExtent(text){
+    const key = currentFamily + '|' + text;
+    if(inkCache.has(key)) return inkCache.get(key);
+    const S = 100, X0 = 100, BASE = 300, CH = 500;
+    const g0 = document.createElement('canvas').getContext('2d');
+    g0.font = S + 'px "' + currentFamily + '", cursive';
+    const adv = Math.max(1, Math.round(g0.measureText(text).width));
+    const CW = adv + 2 * X0;
+    const cv = document.createElement('canvas');
+    cv.width = CW; cv.height = CH;
+    const g = cv.getContext('2d', { willReadFrequently: true });
+    g.font = S + 'px "' + currentFamily + '", cursive';
+    g.fillText(text, X0, BASE);
+    const d = g.getImageData(0, 0, CW, CH).data;
+    let yMin = -1, yMax = -1;
+    for(let y = 0; y < CH; y++){
+      let any = false, inAdv = 0;
+      for(let x = 0; x < CW; x++){
+        if(d[(y * CW + x) * 4 + 3] < 64) continue;
+        any = true;
+        if(x >= X0 && x < X0 + adv) inAdv++;
+      }
+      if(!any || inAdv >= adv * 0.95) continue;
+      if(yMin < 0) yMin = y;
+      yMax = y;
+    }
+    const ext = yMin < 0 ? null : { top: (BASE - yMin) / S, bottom: (yMax + 1 - BASE) / S };
+    inkCache.set(key, ext);
+    return ext;
+  }
+
+  // The slider may only go as large as keeps the tallest and lowest letters of the current set
+  // within type.fit.above of the baseline (and type.fit.below, if set).
+  function updateSizeLimit(){
+    const type = TYPES[typeSelect.value];
+    let max = SIZE_MAX;
+    if(type.fit){
+      const ext = buildSets(caseSelect.value)[0].letters.map(inkExtent).filter(Boolean);
+      if(ext.length){
+        // letters are drawn baseShift*size below the font baseline (see measureFont)
+        const up = Math.max(...ext.map(e => e.top)) - fontMetrics.baseShift;
+        const down = Math.max(...ext.map(e => e.bottom)) + fontMetrics.baseShift;
+        if(up > 0.01) max = Math.min(max, type.fit.above / up);
+        if(type.fit.below && down > 0.01) max = Math.min(max, type.fit.below / down);
+      }
+    }
+    sizeRange.max = Math.max(parseFloat(sizeRange.min), Math.floor(max * 2) / 2);
+  }
+
+  async function fitLetterSize(){
+    try { await document.fonts.load('100px "' + currentFamily + '"', 'xnmuvw'); } catch(e) {}
+    inkCache.clear();
+    fontMetrics = measureFont();
+    updateSizeLimit();
+    const target = TYPES[typeSelect.value].xHeight / fontMetrics.xRatio;
+    const min = parseFloat(sizeRange.min), max = parseFloat(sizeRange.max);
+    sizeRange.value = Math.min(max, Math.max(min, Math.round(target * 2) / 2));
+    render();
+  }
+
+  // widest rendered advance of the given strings, in mm at font-size `size`
+  function maxTextWidth(items, size){
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.font = '100px "' + currentFamily + '", cursive';
+    return Math.max(...items.map(t => ctx.measureText(t).width)) / 100 * size;
+  }
+
+  function lettersMarkup(letters, type, area, size, repeats){
+    const traceAttrs = ' font-size="' + size + '" fill="none" stroke-width="0.24" stroke-dasharray="0.01 0.55" stroke-linecap="round" stroke-linejoin="round"';
+    // letter pairs (Aa, Bb …) are spaced by their measured width so they don't overlap
+    const pairW = letters.some(ch => ch.length > 1) ? maxTextWidth(letters, size) : 0;
+    let leadX, xs;
+    if(type.cell){
+      // one letter (or pair, spanning as many cells as it needs) per grid cell
+      const cols = Math.round(area.w / type.cell);
+      const span = pairW ? Math.max(1, Math.ceil((pairW + 2) / type.cell)) : 1;
+      leadX = area.x0 + 2;
+      const fit = Math.floor(cols / span) - 1;
+      xs = Array.from({ length: Math.max(0, Math.min(repeats, fit)) }, (_, k) => leadX + (k + 1) * span * type.cell);
+    } else if(pairW){
+      leadX = area.x0 + 1.5;
+      const gap = Math.max(2, size * 0.25);
+      const start = leadX + pairW + gap;
+      const end = area.x0 + area.w - pairW;
+      const count = Math.max(0, Math.min(repeats, Math.floor((end - start) / (pairW + gap)) + 1));
+      const step = count > 1 ? (end - start) / (count - 1) : 0;
+      xs = Array.from({ length: count }, (_, k) => start + k * step);
+    } else {
+      leadX = area.x0 + 1.5;
+      const start = leadX + size * 1.1 + 3;
+      const end = area.x0 + area.w - size * 0.6;
+      const step = repeats > 1 ? (end - start) / (repeats - 1) : 0;
+      xs = Array.from({ length: repeats }, (_, k) => start + k * step);
+    }
+    // slant guides: put every letter origin in the middle of a slant "space" at the baseline.
+    // Slant lines (top y .. bottom y) cross the baseline at x = (top - baseline)/tan(angle) (mod spacing); independent of font size.
+    if(type.slant && !type.cell){
+      const sp = type.slant.spacing, mid = (type.slant.top - type.baseline) / slantTan() + sp / 2;
+      const snap = (x, round) => round((x - mid) / sp) * sp + mid;
+      leadX = snap(leadX, Math.round);
+      if(xs.length){
+        const first = snap(xs[0], pairW ? Math.ceil : Math.round);
+        const step = xs.length > 1 ? Math.max(sp, (pairW ? Math.ceil : Math.floor)((xs[1] - xs[0]) / sp) * sp) : 0;
+        const limit = xs[xs.length - 1] + 1e-6;
+        xs = xs.map((_, k) => first + k * step).filter(x => !pairW || x <= limit);
+      }
+    }
+    return letters.map((ch, i) => {
+      const y = r2(i * type.pitch + type.baseline + fontMetrics.baseShift * size);
+      let s = '<text class="lead-letter" x="' + r2(leadX) + '" y="' + y + '" font-size="' + size + '">' + ch + '</text>';
+      xs.forEach(x => {
+        s += '<text class="trace-letter" x="' + r2(x) + '" y="' + y + '"' + traceAttrs + '>' + ch + '</text>';
+      });
+      return s;
+    }).join('');
+  }
+
+  function chunk(arr, size){
+    const out = [];
+    for(let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+    return out;
+  }
+
+  // Letters typed into "Only these letters": a–z only, case ignored, duplicates dropped, typed order kept.
+  // Empty (or no valid letter) = null = the whole alphabet.
+  function onlyLetters(){
+    const seen = new Set();
+    for(const c of onlyInput.value.toLowerCase()) if(LOWER.includes(c)) seen.add(c);
+    return seen.size ? [...seen] : null;
+  }
+
+  function buildSets(caseMode){
+    const only = onlyLetters();
+    const lower = only || LOWER, upper = lower.map(c => c.toUpperCase());
+    const what = only ? ': ' + (caseMode === 'upper' ? upper : caseMode === 'both' ? upper.map((c, i) => c + lower[i]) : lower).join(' ') : '';
+    if(caseMode === 'lower') return [{label: only ? 'Lowercase' + what : 'Lowercase a–z', letters: lower}];
+    if(caseMode === 'upper') return [{label: only ? 'Uppercase' + what : 'Uppercase A–Z', letters: upper}];
+    return [{label: only ? 'Letter pairs' + what : 'Letter pairs Aa–Zz', letters: upper.map((c, i) => c + lower[i])}];
+  }
+
+  function render(){
+    const type = TYPES[typeSelect.value];
+    const paper = PAPER[orientationSelect.value] || PAPER.portrait;
+    W = paper.W; AREA_H = paper.areaH;
+    document.documentElement.classList.toggle('landscape', orientationSelect.value === 'landscape');
+    pageStyle.textContent = '@media print{ @page{ size: A4 ' + (orientationSelect.value === 'landscape' ? 'landscape' : 'portrait') + '; margin: 0; } }';
+    const size = parseFloat(sizeRange.value);
+    const repeats = Math.max(3, Math.min(14, parseInt(repeatsInput.value, 10) || 8));
+    const rows = Math.floor(AREA_H / type.pitch);
+    const height = rows * type.pitch;
+
+    sizeReadout.textContent = size + ' mm';
+
+    const sheets = [];
+    buildSets(caseSelect.value).forEach(set => {
+      // each letter gets its own row(s), grouped: a a a e e e
+      const lines = Math.max(1, Math.min(10, parseInt(linesInput.value, 10) || 1));
+      const letters = set.letters.flatMap(ch => Array(lines).fill(ch));
+      chunk(letters, rows).forEach((pageLetters, i) => {
+        sheets.push({ title: i === 0 ? set.label : set.label + ' (continued)', letters: pageLetters });
+      });
+    });
+
+    canvas.innerHTML = sheets.map((s, i) => {
+      const area = type.guides(rows);
+      return '<section class="sheet">' +
+        '<div class="sheet-header"><h2>' + s.title + '</h2><span class="meta">' + type.meta.replace('55°', angleRange.value + '°') + '</span></div>' +
+        '<svg class="sheet-svg" viewBox="0 0 ' + W + ' ' + height + '" width="' + W + 'mm" height="' + height + 'mm">' +
+          area.markup + lettersMarkup(s.letters, type, area, size, repeats) +
+        '</svg>' +
+        '<div class="sheet-footer">Page ' + (i + 1) + ' of ' + sheets.length + '</div>' +
+      '</section>';
+    }).join('');
+  }
+
+  let renderTimer, fontTimer;
+  function scheduleRender(){
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(render, 150);
+  }
+
+  const syncAngleField = () => { angleField.hidden = !TYPES[typeSelect.value].slant; };
+  typeSelect.addEventListener('change', () => { syncAngleField(); fitLetterSize(); });
+  angleRange.addEventListener('input', () => { angleReadout.textContent = angleRange.value + '°'; });
+
+  fontSelect.addEventListener('change', () => {
+    fontInput.value = '';
+    fontLink.removeAttribute('href');
+    setScriptFont(fontSelect.value);
+    fitLetterSize();
+  });
+
+  fontInput.addEventListener('input', () => {
+    clearTimeout(fontTimer);
+    fontTimer = setTimeout(() => {
+      let name = sanitizeFontName(fontInput.value);
+      if(!name) return;
+      // use the exact family spelling if it is one of the suggestions
+      name = GOOGLE_FONTS.find(f => f.toLowerCase() === name.toLowerCase()) || name;
+      fontLink.onload = fitLetterSize;
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=' + name.replace(/\s+/g, '+') + '&display=swap';
+      setScriptFont(name);
+      render();
+    }, 400);
+  });
+
+  caseSelect.addEventListener('change', updateSizeLimit);
+  onlyInput.addEventListener('input', updateSizeLimit);
+  [caseSelect, onlyInput, linesInput, orientationSelect, sizeRange, angleRange, repeatsInput].forEach(el => el.addEventListener('input', scheduleRender));
+
+  injectLocalFonts();
+  const GOOGLE_FONTS = window.GOOGLE_HANDWRITING_FONTS || [];
+  document.getElementById('font-suggestions').append(...GOOGLE_FONTS.map(f => new Option('', f)));
+  if(fontSelect.options.length && !fontSelect.options[0].disabled){
+    fontSelect.value = fontSelect.options[0].value;
+    setScriptFont(fontSelect.value);
+  }
+  syncAngleField();
+  render();
+  fitLetterSize();
+})();
+</script>
