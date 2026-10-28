@@ -53,6 +53,30 @@ If you don't want to download a file, use the "Or online Google Font" field: sta
 
 **Privacy:** the font is loaded from Google's servers, so your browser sends your IP address to Google. Nothing is requested until you enter a name, and the local fonts in the dropdown never contact Google.
 
+## Tests
+
+A smoke / regression test checks that the page still behaves as it does now. It needs only Python 3 and Chrome (macOS or Linux):
+
+```sh
+python3 tests/run.py          # set CHROME=/path/to/chrome to use a specific browser
+```
+
+It loads a temporary copy of `index.html` in headless Chrome, always with the bundled Playwrite CA font, and checks:
+
+- **Letter options:** "Only these letters" (case ignored, duplicates dropped, typed order kept, invalid input falls back to the whole alphabet, sheet titles) and "Lines per letter" (grouping, clamped to 1–10).
+- **Every sheet type** × portrait/landscape × lowercase/uppercase/pairs: the letter size stays inside the slider range, the guides end above the bottom padding, and the footer sits below the guides.
+- **Printing:** each sheet type and paper prints to the expected number of A4 pages (lowercase: portrait 3/2/2/3/2/2, landscape 4/3/3/4/3/3 for copperplate/lines/bands/slantgrid/dots/squares).
+- **Privacy:** nothing is requested from the network, and the Google Fonts link stays unset, until a font name is typed. No script errors.
+- **Golden snapshot** (`tests/golden.json`): for every combination the sheet count, rows, letter counts, slider size and maximum, and a hash of each sheet's SVG. Any change to the drawn sheets shows up as a difference.
+
+Every run also writes a Markdown report (`tests/out/report.md`): headline numbers, problems first, then collapsible tables for the letter-option checks, every sheet type × paper × letters combination and the print page counts. On GitHub it is shown as the job summary at the top of the run page.
+
+The test runs on every push and pull request in GitHub Actions (`.github/workflows/test.yml`, Ubuntu with Chrome). The GitHub run is the reference: the page measures the font by scanning rendered pixels, so a snapshot made on another OS or Chrome version can differ slightly without a real regression.
+
+**Updating the snapshot:** each run uploads its results as the `smoke-results` artifact (Actions tab, open the run, Artifacts). While `tests/golden.json` does not exist the snapshot check is skipped with a warning. After an intended change to the sheets, download the artifact and replace `tests/golden.json` with the `golden.json` from it, then commit.
+
+Not covered: your own fonts, Google Fonts loading, the `.cmd` script, real printing and how the sheets look. Test output and temporary pages (`tests/out/`, `.smoke-tmp-*.html`) are git-ignored.
+
 ## Licensing note
 
 The code is under the [PolyForm Noncommercial License 1.0.0](LICENSE): free for personal, educational and other noncommercial use, not for commercial use. It is source-available, not open source. The license covers only the code, not the fonts below.

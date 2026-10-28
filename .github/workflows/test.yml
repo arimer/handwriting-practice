@@ -1,0 +1,26 @@
+name: smoke-test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Chrome version
+        run: google-chrome --version
+      - name: Smoke / regression test
+        run: python3 tests/run.py
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-results
+          path: tests/out/
+          if-no-files-found: ignore

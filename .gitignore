@@ -9,3 +9,7 @@ fonts/*
 # Claude Code files stay out of the repo
 CLAUDE.md
 .claude/
+
+# Test run output and temporary pages
+tests/out/
+.smoke-tmp-*.html
