@@ -1,0 +1,868 @@
+{
+ "cases": {
+  "bands/landscape/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "fdc6c88d",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 70
+    },
+    {
+     "rows": 10,
+     "svg": "d54b41cd",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 70
+    },
+    {
+     "rows": 6,
+     "svg": "7fd72bcd",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 42
+    }
+   ],
+   "size": 9.5
+  },
+  "bands/landscape/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "1abe786e",
+     "title": "Lowercase a\u2013z",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "358cb33a",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "a593fff5",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 9.5
+  },
+  "bands/landscape/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "2f575bae",
+     "title": "Uppercase A\u2013Z",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "b7dc7a7a",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "34522275",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 9.5
+  },
+  "bands/portrait/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "54d5d404",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 64
+    },
+    {
+     "rows": 10,
+     "svg": "8756ed2a",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 50
+    }
+   ],
+   "size": 9.5
+  },
+  "bands/portrait/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "df4a9d54",
+     "title": "Lowercase a\u2013z",
+     "trace": 128
+    },
+    {
+     "rows": 10,
+     "svg": "f16aee09",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 80
+    }
+   ],
+   "size": 9.5
+  },
+  "bands/portrait/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "a8f707d4",
+     "title": "Uppercase A\u2013Z",
+     "trace": 128
+    },
+    {
+     "rows": 10,
+     "svg": "38f93089",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 80
+    }
+   ],
+   "size": 9.5
+  },
+  "copperplate/landscape/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 8,
+     "svg": "63f27c5",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 56
+    },
+    {
+     "rows": 8,
+     "svg": "d32950c5",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 56
+    },
+    {
+     "rows": 8,
+     "svg": "3e969bc5",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 56
+    },
+    {
+     "rows": 2,
+     "svg": "a4bc99c5",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 14
+    }
+   ],
+   "size": 7.5
+  },
+  "copperplate/landscape/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 8,
+     "svg": "364f43e2",
+     "title": "Lowercase a\u2013z",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "817e83f2",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "e88997e2",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 2,
+     "svg": "51d104f4",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 16
+    }
+   ],
+   "size": 7.5
+  },
+  "copperplate/landscape/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 8,
+     "svg": "25b53622",
+     "title": "Uppercase A\u2013Z",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "70e47632",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "d7ef8a22",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 2,
+     "svg": "1a475df4",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 16
+    }
+   ],
+   "size": 7.5
+  },
+  "copperplate/portrait/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 12,
+     "svg": "418ac35",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 84
+    },
+    {
+     "rows": 12,
+     "svg": "a7674056",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 72
+    },
+    {
+     "rows": 2,
+     "svg": "f0d38775",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 14
+    }
+   ],
+   "size": 7.5
+  },
+  "copperplate/portrait/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 12,
+     "svg": "8e4389ba",
+     "title": "Lowercase a\u2013z",
+     "trace": 96
+    },
+    {
+     "rows": 12,
+     "svg": "153614a2",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 96
+    },
+    {
+     "rows": 2,
+     "svg": "8f527044",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 16
+    }
+   ],
+   "size": 7.5
+  },
+  "copperplate/portrait/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 12,
+     "svg": "e534ca7a",
+     "title": "Uppercase A\u2013Z",
+     "trace": 96
+    },
+    {
+     "rows": 12,
+     "svg": "6c275562",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 96
+    },
+    {
+     "rows": 2,
+     "svg": "2d5f5104",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 16
+    }
+   ],
+   "size": 7.5
+  },
+  "dots/landscape/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "d4c490c8",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "2f4fd108",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "75c2ee57",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 9.5
+  },
+  "dots/landscape/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "b6095ea3",
+     "title": "Lowercase a\u2013z",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "3a2619b7",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "78a44b38",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 9.5
+  },
+  "dots/landscape/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "fa859023",
+     "title": "Uppercase A\u2013Z",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "977bf637",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "3d7f7478",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 9.5
+  },
+  "dots/portrait/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "97738f65",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "a9972ad",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 60
+    }
+   ],
+   "size": 9.5
+  },
+  "dots/portrait/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "79ca7efb",
+     "title": "Lowercase a\u2013z",
+     "trace": 128
+    },
+    {
+     "rows": 10,
+     "svg": "af786586",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 80
+    }
+   ],
+   "size": 9.5
+  },
+  "dots/portrait/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "a259db7b",
+     "title": "Uppercase A\u2013Z",
+     "trace": 128
+    },
+    {
+     "rows": 10,
+     "svg": "5d900686",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 80
+    }
+   ],
+   "size": 9.5
+  },
+  "lines/landscape/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "146f7d",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "3665b91d",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "e8503099",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 7.5
+  },
+  "lines/landscape/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "d5161236",
+     "title": "Lowercase a\u2013z",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "90035322",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "ce13fe96",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 7.5
+  },
+  "lines/landscape/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "60e5fab6",
+     "title": "Uppercase A\u2013Z",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "2b1d7aa2",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "f6ad8d56",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 7.5
+  },
+  "lines/portrait/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 15,
+     "svg": "9ff63e3b",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 105
+    },
+    {
+     "rows": 11,
+     "svg": "8508ea75",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 88
+    }
+   ],
+   "size": 7.5
+  },
+  "lines/portrait/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 15,
+     "svg": "a2d80fec",
+     "title": "Lowercase a\u2013z",
+     "trace": 120
+    },
+    {
+     "rows": 11,
+     "svg": "501fe81e",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 88
+    }
+   ],
+   "size": 7.5
+  },
+  "lines/portrait/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 15,
+     "svg": "7576ce0c",
+     "title": "Uppercase A\u2013Z",
+     "trace": 120
+    },
+    {
+     "rows": 11,
+     "svg": "d95f2e7e",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 88
+    }
+   ],
+   "size": 7.5
+  },
+  "slantgrid/landscape/both": {
+   "max": 18,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 8,
+     "svg": "993f5129",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "86083d96",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 40
+    },
+    {
+     "rows": 8,
+     "svg": "e4ccf929",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 2,
+     "svg": "c88b5934",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 16
+    }
+   ],
+   "size": 7.5
+  },
+  "slantgrid/landscape/lower": {
+   "max": 19,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 8,
+     "svg": "bc83f361",
+     "title": "Lowercase a\u2013z",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "953fa771",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "125fbf61",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 2,
+     "svg": "28741f77",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 16
+    }
+   ],
+   "size": 7.5
+  },
+  "slantgrid/landscape/upper": {
+   "max": 18,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 8,
+     "svg": "b4ab5a1",
+     "title": "Uppercase A\u2013Z",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "e40669b1",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 8,
+     "svg": "612681a1",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 64
+    },
+    {
+     "rows": 2,
+     "svg": "e493c637",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 16
+    }
+   ],
+   "size": 7.5
+  },
+  "slantgrid/portrait/both": {
+   "max": 18,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 12,
+     "svg": "92cc9484",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 84
+    },
+    {
+     "rows": 12,
+     "svg": "ba01cf44",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 36
+    },
+    {
+     "rows": 2,
+     "svg": "ae860ac4",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 14
+    }
+   ],
+   "size": 7.5
+  },
+  "slantgrid/portrait/lower": {
+   "max": 19,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 12,
+     "svg": "985bd904",
+     "title": "Lowercase a\u2013z",
+     "trace": 84
+    },
+    {
+     "rows": 12,
+     "svg": "78bda04",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 84
+    },
+    {
+     "rows": 2,
+     "svg": "f9746a04",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 14
+    }
+   ],
+   "size": 7.5
+  },
+  "slantgrid/portrait/upper": {
+   "max": 18,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 12,
+     "svg": "e4443504",
+     "title": "Uppercase A\u2013Z",
+     "trace": 84
+    },
+    {
+     "rows": 12,
+     "svg": "53743604",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 84
+    },
+    {
+     "rows": 2,
+     "svg": "5cb5e784",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 14
+    }
+   ],
+   "size": 7.5
+  },
+  "squares/landscape/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "ee8948c2",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "d38e2c82",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "f108a89d",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 9.5
+  },
+  "squares/landscape/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "116b9e29",
+     "title": "Lowercase a\u2013z",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "200b363d",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "42d9f2f2",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 9.5
+  },
+  "squares/landscape/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 10,
+     "svg": "b512c0a9",
+     "title": "Uppercase A\u2013Z",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "d75449bd",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 80
+    },
+    {
+     "rows": 6,
+     "svg": "323f4f32",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 48
+    }
+   ],
+   "size": 9.5
+  },
+  "squares/portrait/both": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "bb0c2a2a",
+     "title": "Letter pairs Aa\u2013Zz",
+     "trace": 80
+    },
+    {
+     "rows": 10,
+     "svg": "78c51062",
+     "title": "Letter pairs Aa\u2013Zz (continued)",
+     "trace": 60
+    }
+   ],
+   "size": 9.5
+  },
+  "squares/portrait/lower": {
+   "max": 12,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "6a5f60b4",
+     "title": "Lowercase a\u2013z",
+     "trace": 128
+    },
+    {
+     "rows": 10,
+     "svg": "526ae409",
+     "title": "Lowercase a\u2013z (continued)",
+     "trace": 80
+    }
+   ],
+   "size": 9.5
+  },
+  "squares/portrait/upper": {
+   "max": 11,
+   "min": 6,
+   "sheets": [
+    {
+     "rows": 16,
+     "svg": "80963af4",
+     "title": "Uppercase A\u2013Z",
+     "trace": 128
+    },
+    {
+     "rows": 10,
+     "svg": "77990c09",
+     "title": "Uppercase A\u2013Z (continued)",
+     "trace": 80
+    }
+   ],
+   "size": 9.5
+  }
+ }
+}
